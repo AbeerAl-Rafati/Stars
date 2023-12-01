@@ -1,45 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Name Evaluation App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Evaluation App</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Name Evaluation App</h1>
 
-    <div id="inputSection">
-      <label for="nameInput">Enter Name:</label>
-      <input type="text" id="nameInput" placeholder="Name">
-      <button onclick="addName()">Add Name</button>
+<div id="app">
+    <h1>Evaluation App</h1>
+
+    <div>
+        <h2>Add Names and Ratings</h2>
+        <ul id="nameList"></ul>
+        <button onclick="addNames()">Add Names</button>
     </div>
 
-    <div id="evaluationSection">
-      <h2>Give a 5-star evaluation:</h2>
-      <select id="starRating">
-        <option value="1">1 star</option>
-        <option value="2">2 stars</option>
-        <option value="3">3 stars</option>
-        <option value="4">4 stars</option>
-        <option value="5">5 stars</option>
-      </select>
-      <button onclick="submitEvaluation()">Submit Evaluation</button>
+    <div>
+        <h2>Evaluation Results</h2>
+        <ul id="results"></ul>
     </div>
+</div>
 
-    <div id="feedbackSection">
-      <h2>Provide Narrative Feedback:</h2>
-      <textarea id="narrativeInput" rows="4" placeholder="Write your feedback"></textarea>
-      <button onclick="submitFeedback()">Submit Feedback</button>
-    </div>
-
-    <div id="resultsSection">
-      <h2>Results:</h2>
-      <ul id="resultsList"></ul>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
