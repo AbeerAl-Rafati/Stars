@@ -1,74 +1,50 @@
-const names = loadFromLocalStorage('names') || [];
-const evaluations = loadFromLocalStorage('evaluations') || [];
+const names = [];
 
-function saveToLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
-}
+function addNames() {
+    for (let i = 1; i <= 7; i++) {
+        const name = prompt(`Enter Name ${i}:`);
+        if (name) {
+            const rating = prompt(`Enter Rating (1-5) for ${name}:`);
+            if (rating && parseInt(rating) >= 1 && parseInt(rating) <= 5) {
+                names.push({ name, rating });
+            } else {
+                alert("Please enter a valid rating (1-5).");
+                return;
+            }
+        } else {
+            alert("Please enter a name.");
+            return;
+        }
+    }
 
-function loadFromLocalStorage(key) {
-  const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : null;
-}
-
-function addName() {
-  const nameInput = document.getElementById('nameInput');
-  const name = nameInput.value.trim();
-
-  if (name !== '' && !names.includes(name)) {
-    names.push(name);
-    saveToLocalStorage('names', names);
-    nameInput.value = '';
     displayResults();
-  }
-}
-
-function submitEvaluation() {
-  const starRating = document.getElementById('starRating').value;
-  const evaluator = prompt("Enter your name:");
-
-  if (evaluator !== null && evaluator.trim() !== '') {
-    evaluations.push({ type: 'Star', rating: starRating, evaluator: evaluator, timestamp: Date.now() });
-    saveToLocalStorage('evaluations', evaluations);
-    displayResults();
-  }
-}
-
-function submitFeedback() {
-  const narrativeInput = document.getElementById('narrativeInput');
-  const feedback = narrativeInput.value.trim();
-  const evaluator = prompt("Enter your name:");
-
-  if (evaluator !== null && evaluator.trim() !== '' && feedback !== '') {
-    evaluations.push({ type: 'Narrative', feedback: feedback, evaluator: evaluator, timestamp: Date.now() });
-    saveToLocalStorage('evaluations', evaluations);
-    narrativeInput.value = '';
-    displayResults();
-  }
 }
 
 function displayResults() {
-  const resultsList = document.getElementById('resultsList');
-  resultsList.innerHTML = '';
+    const nameList = document.getElementById("nameList");
+    const resultsList = document.getElementById("results");
 
-  for (let i = 0; i < names.length; i++) {
-    const listItem = document.createElement('li');
-    listItem.innerHTML = `<strong>${names[i]}</strong>: `;
-    
-    const nameEvaluations = evaluations.filter(eval => eval.name === names[i]);
+    // Clear previous data
+    nameList.innerHTML = "";
+    resultsList.innerHTML = "";
 
-    nameEvaluations.forEach(eval => {
-      listItem.innerHTML += `Evaluated by: <strong>${eval.evaluator}</strong> | `;
-
-      if (eval.type === 'Star') {
-        listItem.innerHTML += `${eval.rating} stars`;
-      } else if (eval.type === 'Narrative') {
-        listItem.innerHTML += `<em>"${eval.feedback}"</em>`;
-      }
-
-      listItem.innerHTML += '<span>Date: ' + new Date(eval.timestamp).toLocaleString() + '</span>';
+    // Display names and ratings
+    names.forEach((person) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<strong>${person.name}</strong> - ${person.rating} stars`;
+        nameList.appendChild(listItem);
     });
 
-    resultsList.appendChild(listItem);
-  }
-}
+    // Display detailed results
+    names.forEach((person) => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <strong>${person.name}</strong>
+            <div class="star-rating">
+                <span style="width: ${person.rating * 20}%">☆☆☆☆☆</span>
+            </div>
+            <p>Rating: ${person.rating} stars</p>
+        `;
+        resultsList.appendChild(listItem);
+    });
 }
