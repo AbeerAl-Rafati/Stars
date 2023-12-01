@@ -1,5 +1,14 @@
-const names = [];
-const evaluations = [];
+const names = loadFromLocalStorage('names') || [];
+const evaluations = loadFromLocalStorage('evaluations') || [];
+
+function saveToLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+function loadFromLocalStorage(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
 
 function addName() {
   const nameInput = document.getElementById('nameInput');
@@ -7,6 +16,7 @@ function addName() {
 
   if (name !== '' && !names.includes(name)) {
     names.push(name);
+    saveToLocalStorage('names', names);
     nameInput.value = '';
     displayResults();
   }
@@ -15,6 +25,7 @@ function addName() {
 function submitEvaluation() {
   const starRating = document.getElementById('starRating').value;
   evaluations.push({ type: 'Star', rating: starRating });
+  saveToLocalStorage('evaluations', evaluations);
   displayResults();
 }
 
@@ -24,6 +35,7 @@ function submitFeedback() {
 
   if (feedback !== '') {
     evaluations.push({ type: 'Narrative', feedback: feedback });
+    saveToLocalStorage('evaluations', evaluations);
     narrativeInput.value = '';
     displayResults();
   }
