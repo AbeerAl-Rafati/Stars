@@ -1,48 +1,46 @@
 body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 20px;
 }
 
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+#app {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-#inputSection, #evaluationSection, #feedbackSection {
-  margin-bottom: 20px;
+h1, h2 {
+    text-align: center;
 }
 
 button {
-  padding: 10px;
-  cursor: pointer;
+    display: block;
+    margin: 10px auto;
 }
 
-#resultsList {
-  list-style-type: none;
-  padding: 0;
+ul {
+    list-style: none;
+    padding: 0;
 }
 
-/* Add styles for the new elements */
-#resultsList li span {
-  display: block;
-  margin-top: 5px;
+li {
+    margin-bottom: 10px;
 }
 
-#resultsList li em {
-  display: block;
-  margin-top: 5px;
-  color: #555;
+.star-rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 20px;
 }
 
+.star-rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
 
-#resultsList li {
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
+.star-rating > span:hover:before,
+.star-rating > span:hover ~ span:before {
+    content: '\2605';
+    position: absolute;
+    color: gold;
 }
